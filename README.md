@@ -1,0 +1,1 @@
+Daily coding challenge for the month of December 2022
