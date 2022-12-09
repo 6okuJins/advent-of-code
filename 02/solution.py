@@ -1,6 +1,7 @@
 class Solution():
   winningMoves = {('A', 'Y'), ('B', 'Z'), ('C', 'X')}
   tieMoves = {('A', 'X'), ('B', 'Y'), ('C', 'Z')}
+  losingMoves = {('A', 'Z'), ('B', 'X'), ('C', 'Y')}
   pointValues = { 'X': 1,
                   'Y': 2,
                   'Z': 3}
@@ -26,6 +27,18 @@ class Solution():
         self.setScore(6)
       elif pair in self.tieMoves:
         self.setScore(3)
+  
+  def computeScore2(self):
+    inputList = self.getInputList()
+    for pair in inputList:
+      # If you are meant to lose
+      if pair[1] == 'X':
+        self.setScore(self.pointValues[dict(self.losingMoves)[pair[0]]])
+      # If you are meant to tie
+      elif pair[1] == 'Y':
+        self.setScore(self.pointValues[dict(self.tieMoves)[pair[0]]] + 3)
+      else:
+        self.setScore(self.pointValues[dict(self.winningMoves)[pair[0]]] + 6)
 
 if __name__ == "__main__":
   inputList = []
@@ -33,5 +46,6 @@ if __name__ == "__main__":
     for pair in f:
       inputList.append(tuple(pair.rstrip('\n').split(" ")))
   mySolution = Solution(inputList)
-  mySolution.computeScore()
+  mySolution.computeScore2()
   print(mySolution.getScore())
+  
